@@ -1,0 +1,24 @@
+
+<div>
+  <ul>
+    
+    <li>
+       <a href="" routerLink="/" [routerLinkActive]="['active']"  [routerLinkActiveOptions]="{exact:true}">Home</a>
+      </li>
+        <li *ngIf="auth.loggedIn()">
+          <a href="" routerLink="/Profile"[routerLinkActive]="['active']"  [routerLinkActiveOptions]="{exact:true}"  >Profile</a>
+        </li>
+        <li *ngIf="!auth.loggedIn()">
+          <a href="" [routerLinkActive]="['active']"  [routerLinkActiveOptions]="{exact:true}"  routerLink="/register">Register</a>
+        </li>
+        <li *ngIf="!auth.loggedIn()" >
+          <a href="" [routerLinkActive]="['active']"  [routerLinkActiveOptions]="{exact:true}" routerLink="/login">Login</a>
+        </li>
+        <li *ngIf="auth.loggedIn()">
+          <a href=""  (click)="Logout()" routerLink="/">Logout</a>
+        </li>
+  </ul>
+<hr>
+</div><h1  class="Header">Mean App</h1>
+
+<router-outlet></router-outlet>
