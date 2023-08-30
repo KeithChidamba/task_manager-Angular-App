@@ -63,7 +63,14 @@ vertical-align: middle;
   width: 350px;
   display: inline-block;
 }
-.info, .success, .warning, .error, .validation {
+.success{
+  width: 350px;
+  border: 1px solid;
+  padding: 15px 10px 15px 50px;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+.info, .warning, .error, .validation {
   border: 1px solid;
   margin: 10px 0px;
   padding: 15px 10px 15px 50px;

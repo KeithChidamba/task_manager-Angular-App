@@ -17,6 +17,7 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder,public auth:AuthService,private router:Router) { } 
   err = false;
+  success = false;
   checkingValidity =false;
   errorAlert='';
   user:User={
@@ -52,6 +53,8 @@ export class LoginComponent {
             this.auth.StoreToken(data);
             this.auth.LoadToken();
             this.auth.loggedIn();
+            this.success = true;
+            this.err = false;
             setTimeout(()=>{
                 this.router.navigate(['Profile'])
             },1000)

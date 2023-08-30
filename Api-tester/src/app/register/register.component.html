@@ -1,10 +1,11 @@
 
 <form [formGroup]="SignUpform"  style="border:1px solid #ccc">
 
-	<!-- <div class="success">Success</div>-->
+
 	<div *ngIf="err" class="error">{{errorAlert}}</div>
 
     <div class="container"  align="center">
+      <div class="success" *ngIf="success">Success</div>
       <h1>Sign Up</h1>
        <!--username-->
       <div>
@@ -17,7 +18,7 @@
           <li class="warning" *ngIf="SignUpform.controls.username.errors?.['maxlength']">Must be shorter than 15 cahracters long</li>
         </ul>
       </div>
-      <!--email-->
+      <!--email  -->
       <div>
         <label class="labels" for="email"><b>Email  </b></label>
         <input class="InputField" type="text" placeholder="Enter Email" name="email" formControlName="email" required>

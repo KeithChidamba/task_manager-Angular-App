@@ -3,8 +3,7 @@ import { Validators,FormBuilder } from "@angular/forms";
 import { User } from "../userInt";
 import { AuthService } from "../services/auth.service";
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { HomeComponent } from '../home/home.component';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -18,6 +17,7 @@ export class RegisterComponent {
   errorAlert='';
   checkingValidity =false;
   err = false;
+  success = false;
   user:User={
     email: '',
     password:'',
@@ -55,9 +55,11 @@ export class RegisterComponent {
           (data)=>{
             this.auth.UserValidated=true;
             this.auth.NotRegistered =false;
+            this.err = false;
+            this.success=true;
                   setTimeout(()=>{
                       this.router.navigate([''])
-                  },1000)
+                  },2500)
           },
           (error)=>{
               this.err = true;

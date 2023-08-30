@@ -5,6 +5,7 @@
     <div class="container"  align="center">
       <h1>Sign Up</h1>
        <!--username-->
+       <div *ngIf="success" class="success">Success</div>
       <div>
         <label class="labels" for="username"><b>Username</b></label>
         <input class="InputField" type="text" placeholder="Enter username" name="username" formControlName="username"  required>  
