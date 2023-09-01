@@ -23,9 +23,6 @@ app.use(cors({
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-//var urlencodedParser = bodyParser.urlencoded({ extended: false });
-//var jsonParser = bodyParser.json();
-
 app.use(express.static(__dirname + '/App/dist'));
 app.use('/authentication',authentication);
 app.get('/',(req,res)=>{
