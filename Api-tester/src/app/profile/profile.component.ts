@@ -12,6 +12,7 @@ import { AuthService } from "../services/auth.service";
 export class ProfileComponent {
 username = '';
 email = '';
+
 constructor(public auth:AuthService){}
 
 ngOnInit(){
@@ -22,7 +23,7 @@ ngOnInit(){
   )
 }
 load(info:any){
-    this.username =JSON.stringify(info.name);
-    this.email=JSON.stringify(info.email);
+    this.username =JSON.stringify(info.name).slice(1, -1);
+    this.email=JSON.stringify(info.email).slice(1, -1);
 }
 }
