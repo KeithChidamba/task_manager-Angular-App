@@ -57,7 +57,7 @@ export class LoginComponent {
             this.err = false;
             setTimeout(()=>{
                 this.router.navigate(['Profile'])
-            },1000)
+            },500)
             this.router 
           },
           (error)=>{

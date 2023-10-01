@@ -45,7 +45,7 @@ export class AuthService {
 
     }
     StoreToken(user:User){
-      localStorage.setItem('Token_id',JSON.stringify(user).slice(1, -1));
+       localStorage.setItem('Token_id',JSON.stringify(user).slice(1, -1));
     }
     Logout(){
         localStorage.clear();
@@ -67,9 +67,6 @@ export class AuthService {
       return this.isLoggedIn
     }
     private handleError(error: HttpErrorResponse) {
-      if (error.status==0){
-        console.error('Headers',error.error);
-      }
       if (error.status==426){
 
         console.error('token',error.error);

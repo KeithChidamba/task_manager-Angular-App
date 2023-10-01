@@ -59,7 +59,7 @@ export class RegisterComponent {
             this.success=true;
                   setTimeout(()=>{
                       this.router.navigate([''])
-                  },2500)
+                  },500)
           },
           (error)=>{
               this.err = true;

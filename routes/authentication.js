@@ -4,8 +4,7 @@ const config = require('../config/database');
 
 module.exports = (router) => {
     router.post('/login', async (req,res)=>{
-        //console.log(req.body)
-    
+        
         if(!req.body.username){
             res.send(["username required"])
             res.json({success: false, message:"username required"})

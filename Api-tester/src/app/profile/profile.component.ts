@@ -12,15 +12,13 @@ import { AuthService } from "../services/auth.service";
 export class ProfileComponent {
 username = '';
 email = '';
-
 constructor(public auth:AuthService){}
-
 ngOnInit(){
-  this.auth.getProfile().subscribe(
-    (profile)=>{
-      this.load(profile)
-    }
-  )
+    this.auth.getProfile().subscribe(
+      (profile)=>{
+        this.load(profile)
+      }
+    )
 }
 load(info:any){
     this.username =JSON.stringify(info.name).slice(1, -1);
