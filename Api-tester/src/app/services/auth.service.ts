@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpParamsOptions, HttpErrorResponse, HttpHeaders, HttpEvent} from "@angular/common/http";
-import { User } from '../userInt';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpEvent} from "@angular/common/http";
+import { User } from '../interfaces/userInt';
 import { catchError,throwError} from 'rxjs';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { DatePipe } from '@angular/common';
@@ -34,7 +34,6 @@ export class AuthService {
             'Content-Type':'application/json',
             'authorization':this.authToken
         })}
-
     }
     getProfile(){
       this.createAuthenticationHeaders();

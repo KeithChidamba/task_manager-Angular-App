@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 var path = require('path');
 const authentication = require('./routes/authentication')(router);
+const task_manager = require('./routes/task-manager')(router);
 const config = require('./config/database');
 const cors = require('cors');
 
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/App/dist'));
 app.use('/authentication',authentication);
+app.use('/task-manager',task_manager);
 app.get('/',(req,res)=>{
     res.send('server');
 });

@@ -1,12 +1,9 @@
 import { Component,Injectable } from '@angular/core';
 import { Validators,FormBuilder } from "@angular/forms";
-import { User } from "../userInt";
+import { User } from "../interfaces/userInt";
 import { AuthService } from "../services/auth.service";
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { HomeComponent } from '../home/home.component';
-import { response } from 'express';
-import { ProfileComponent } from '../profile/profile.component';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
