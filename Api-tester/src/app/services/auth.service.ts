@@ -16,7 +16,6 @@ export class AuthService {
   isLoggedIn = false;
   options:any;
   authToken:any;
-  NotRegistered = true;
      register(user:User) {
           return this.http.post<User>(this.domain+ '/authentication/register',user).pipe(  
             catchError(this.handleError)
@@ -50,9 +49,6 @@ export class AuthService {
         localStorage.clear();
         this.authToken = null;
     }
-    Notregistered(){
-      return this.NotRegistered
-    }
     loggedIn(){
       let current_date = this.dp.transform((new Date),'MM/dd/yyyy h:mm:ss');
       let token_date = this.helper.getTokenExpirationDate(this.authToken);
@@ -68,14 +64,14 @@ export class AuthService {
     private handleError(error: HttpErrorResponse) {
       if (error.status==426){
 
-        console.error('token',error.error);
+        console.error('no token',error.error);
       }
       if (error.status==427){
 
-        console.error('token',error.error);
+        console.error('token invalid',error.error);
       }
-      if (error.status==200){
-        console.error("token!");
+      if (error.status==400){
+        console.error("login error");
       }
       if (error.status==0){
         console.error('An error occurred:header already sent to client', error.error);

@@ -1,5 +1,4 @@
-export interface task{
-    task_number:number,
+export interface task_operation{
     task_name:any,
     task_description:any,
     Task_due_date:any,

@@ -54,12 +54,11 @@ export class RegisterComponent {
         this.auth.register(this.user).subscribe(
           (data)=>{
             this.auth.UserValidated=true;
-            this.auth.NotRegistered =false;
             this.err = false;
             this.success=true;
-                  setTimeout(()=>{
-                      this.router.navigate([''])
-                  },500)
+            setTimeout(()=>{
+                this.router.navigate([''])
+            },500)
           },
           (error)=>{
               this.err = true;

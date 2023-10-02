@@ -83,10 +83,11 @@ module.exports = (router) => {
                  
             }
     });
+    
     router.use((req,res,next)=>{
         const token = req.headers['authorization'];
         if(!token){
-            res.json({success: true, message:"no token"});
+            res.json({success: false, message:"no token"});
             return res.status(426).send(["no token"]);
         }else{
             jwt.verify(token,config.secret,(err,decoded)=>{
@@ -99,9 +100,10 @@ module.exports = (router) => {
                 }
             })
         }
-
     });
+
     router.get('/profile',async(req,res)=>{
+        console.log(req.decoded);
         const user = await User.findOne({_id:req.decoded.userId}).select('username email').exec((err,user)=>{
             if(err){
                 res.json({success: false, message:err});  
@@ -113,7 +115,6 @@ module.exports = (router) => {
                 }
             }
         })
-
     });
     return router;
 }

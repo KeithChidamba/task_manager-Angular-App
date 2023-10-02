@@ -46,14 +46,13 @@ export class LoginComponent {
         }
         this.auth.login(this.user).subscribe(
           (data)=>{
-            this.auth.NotRegistered =false;
             this.auth.StoreToken(data);
             this.auth.LoadToken();
             this.auth.loggedIn();
             this.success = true;
             this.err = false;
             setTimeout(()=>{
-                this.router.navigate(['Profile'])
+                this.router.navigate(['/Profile'])
             },500)
             this.router 
           },
