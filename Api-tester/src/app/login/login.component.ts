@@ -39,11 +39,8 @@ export class LoginComponent {
     checkValidity(){
       this.checkingValidity = true;
       if(this.Loginform.valid){
-          this.user = {
-          email: '',
-          password:this.Loginform.get('password')?.value,
-          username: this.Loginform.get('username')?.value
-        }
+        this.user.password = this.Loginform.get('password')?.value;
+        this.user.username =this.Loginform.get('username')?.value;
         this.auth.login(this.user).subscribe(
           (data)=>{
             this.auth.StoreToken(data);

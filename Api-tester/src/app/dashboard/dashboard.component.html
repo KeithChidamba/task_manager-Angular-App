@@ -1,32 +1,62 @@
-
-
-    <h1>Task Manager</h1>
 <div *ngIf="Adding_task">
-    <div class="task-form">
-        <form [formGroup]="Task_Form">
-            <input type="text" id="task" placeholder="Enter task name..." formControlName="task_name">
-            <input type="text" placeholder="Enter task Description..." formControlName="task_description">
-            <label>Due date</label>
-            <input type="date" id="deadline" formControlName="Task_due_date" pattern="(?:((?:0[1-9]|1[0-9]|2[0-9])\/(?:0[1-9]|1[0-2])|(?:30)\/(?!02)(?:0[1-9]|1[0-2])|31\/(?:0[13578]|1[02]))\/(?:19|20)[0-9]{2})">
-            <button id="add-task" (click)="Add_task()">Done</button>
-        </form>
+    <form [formGroup]="Task_Form">
+        <div *ngIf="err" class="error">{{errorAlert}}</div>
+        <ul  class="InputFieldError" *ngIf="checkingValidity">
+            <li class="warning" *ngIf="Task_Form.controls.task_name.errors?.['required']">Task name is required</li>
+            <li class="warning" *ngIf="Task_Form.controls.task_name.errors?.['minlength']">Task name must be longer 5 cahracters</li>
+            <li class="warning" *ngIf="Task_Form.controls.task_name.errors?.['maxlength']">Task name must be shorter than 15 cahracters long</li>
+            <li class="warning" *ngIf="Task_Form.controls.task_description.errors?.['required']">Description field is required</li> 
+            <li class="warning" *ngIf="Task_Form.controls.task_description.errors?.['minlength']">Description must be longer than 5 characters</li>
+            <li class="warning" *ngIf="Task_Form.controls.task_description.errors?.['maxlength']">Description must be shorter than 80 cahracters long</li>
+            <li class="warning" *ngIf="Task_Form.controls.Task_due_date.errors?.['required']">Date field is required</li>
+        </ul>
+        <div class="container"  align="center">
+            <h1>Add task</h1>
+            <!--taskname-->
+            <div>
+                <label class="labels" for="username"><b>Task Name</b></label>
+                <input class="InputField" type="text" placeholder="Enter task name" formControlName="task_name"  required>  
+                <br>
+            </div>
+            <!--task Decritption-->
+            <div>
+                <label class="labels" for="psw"><b>Description</b></label>
+                <input class="InputField" type="text" placeholder="Enter task Description..." formControlName="task_description"  required>
+                <br>
+            </div>
+            <!--task Date-->
+            <div>
+                <label class="labels" for="psw"><b>Date</b></label>
+                <input class="InputField" type="date" placeholder="01-02-2000"  formControlName="Task_due_date"  required>
+            </div>
+            <!--Form Buttons-->
+            <div class="clearfix">
+                <button type="button" class="cancelbtn" (click)="Add_task_View(false)">Cancel</button>
+                <button class="signupbtn" (click)="Add_task()">Add Task</button>
+            </div>
+        </div>
+    </form>
 
-    </div>
+
+
 </div>
+
 <div *ngIf="!Adding_task">
     <ul>
         <li class="li2">Name</li>
-        <li class="li2">Completed?</li>
-
-        <button (click)="Add_task_View(true)">Add task</button>
+        <li class="li2">Completed?</li><br>
+        <button class=".task button" (click)="Add_task_View(true)">Add task</button>
     </ul>
         <div  class="task-list" id="task-list">
             <ul>
                 <li class="task" *ngFor="let task of tasks_">
                     {{task.task_name}}
-                    <input id="completeBox" type="checkbox">
-                    <button (click)="Show_task_description(task.task_number)">Description</button>
-                    <button (click)="remove_task(task.task_name)">Remove task</button>
+                    <button class=".task button"  (click)="Show_task_description(task.task_number)">Description</button>
+                    <button class=".task button" (click)="remove_task(task.task_name)">Remove task</button>
+                    <button (click)="Complete_task(task.task_name)">
+                        <img *ngIf="!task.task_completed" height="30px" width="30px" src="assets/checkB_open.png">
+                        <img *ngIf="task.task_completed" height="30px" width="30px" src="assets/checkB_close.png">
+                    </button>
                     <div  *ngIf="viewing_task==task.task_number">
                         <p>{{task.task_description}}</p>
                         <p>{{task.Task_due_date}}</p>

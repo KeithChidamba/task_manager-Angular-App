@@ -13,6 +13,11 @@ import { task_operation } from '../interfaces/task_operation';
 })
 export class TaskManagerService {
   constructor(private auth:AuthService,private http:HttpClient) { }
+  Complete_Task(task_:task_operation){
+    return this.http.post<task_operation>(this.auth.domain+ '/task-manager/Complete_task',task_,this.auth.options).pipe(  
+      catchError(this.handleError)
+      );
+  }
   GetTasks(user:User){
       return this.http.post<User>(this.auth.domain+ '/task-manager/tasks',user,this.auth.options);
   }
@@ -27,9 +32,14 @@ export class TaskManagerService {
     )
   }
 private handleError(error: HttpErrorResponse) {
+  if (error.status==400){
+    console.error('Backend',error.error);
+  }
   if (error.status==426){
-
     console.error('token header error',error.error);
+  }
+  if (error.status==422){
+    console.error('task alreasdy exists',error.error);
   }
     console.error(
       `Backend returned code ${error.status}, body was: `, error.error);

@@ -59,9 +59,20 @@ module.exports = (router) => {
             if(err){
                 return res.status(400).send(["encountered Error",err]);
            }else{
-                console.log(del);
+                console.log('deleted: ',del);
            }
         });
     });
+    router.post('/Complete_task',async(req,res)=>{
+        const task = await Task.findOne({task_name:req.body.task_name}, (err,task)=>{
+            if(err){
+                return res.status(400).send(["encountered Error",err]);
+           }else{
+                task.task_completed = true;
+                console.log(task+" has been completed");
+           }
+        }).clone();
+    });
+    
     return router;
 }
