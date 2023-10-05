@@ -7,33 +7,9 @@
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    transition: all 0.5s cubic-bezier(.55, 0, .1, 1);
 }
- 
-.task button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: rgb(255, 255, 255);
-    margin-right: 200px;
-  }
     
-.li2 {
-    float: left;
-    margin-right: 250px;
-    display: block;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
   * {box-sizing: border-box}
 
 /* Full-width input fields */
@@ -55,10 +31,6 @@ hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
-li{
-  color: red;
-}
-
 .signupbtn {
   background-color: #04AA6D;
   color: white;
@@ -90,6 +62,7 @@ button:hover {
   line-height: 50px;
   display: inline-block;
 vertical-align: middle;
+margin-right: 10px;
 }
 /* Clear floats */
 .clearfix::after {
@@ -97,52 +70,55 @@ vertical-align: middle;
   clear: both;
   display: table;
 }
-.InputFieldError{
-  list-style: none;
-  width: 500px;
-  height:150px;
-  display: inline-block;
-  margin-left: 35%;
-}
-.success{
-  width: 350px;
+.error{
   border: 1px solid;
   margin: 10px 0px;
   padding: 15px 10px 15px 50px;
   background-repeat: no-repeat;
   background-position: 10px center;
+  text-align: center;
+  width:500px;
+  margin-left: 30%;
 }
-.info,.warning, .error, .validation {
-  border: 1px solid;
-  padding: 15px 10px 15px 50px;
-  background-repeat: no-repeat;
-  background-position: 10px center;
-}
-.info {
-  color: #00529B;
-  background-color: #BDE5F8;
-  background-image: url('https://i.imgur.com/ilgqWuX.png');
-}
-.success {
-  color: #4F8A10;
-  background-color: #DFF2BF;
-  background-image: url('https://i.imgur.com/Q9BGTuy.png');
-}
-.warning {
-  color: #9F6000;
-  background-color: #FEEFB3;
-  background-image: url('https://i.imgur.com/Z8q7ww7.png');
-}
+
 .error{
   color: #D8000C;
   background-color: #FFBABA;
   background-image: url('https://i.imgur.com/GnyDvKN.png');
 }
-.validation{
-  color: #D63301;
-  background-color: #FFCCBA;
-  background-image: url('https://i.imgur.com/GnyDvKN.png');
+.alert {
+width: 500px;
+height: 20px;
+font-family: sans-serif;
+text-align: center;
+font-size: 10px;
+background-color: #FDF7DF;
+border: 1px solid #FEEC6F;
+color: #C9971C;
+margin-bottom: 20px;
 }
+.OperationBtn{
+  width: 100px;
+  height: 25px;
+  background-color: orange;
+  border: none;
+  cursor: pointer;
+}
+@keyframes strikethrough {
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: scaleX(1);
+	}
+}
+.task:hover{
+  transform-origin: center left;
+	animation: strikethrough 1s 0.5s cubic-bezier(.55, 0, .1, 1) 1;
+	transition: transform 0.5s cubic-bezier(.55, 0, .1, 1);
+}
+
+
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 300px) {
   .cancelbtn, .signupbtn {

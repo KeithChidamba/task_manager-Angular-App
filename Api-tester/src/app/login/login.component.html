@@ -8,25 +8,25 @@
       <div>
         <label class="labels" for="username"><b>Username</b></label>
         <input class="InputField" type="text" placeholder="Enter username" name="username" formControlName="username"  required>  
-        <ul  class="InputFieldError" *ngIf="checkingValidity">
-          <li class="warning" *ngIf="Loginform.controls.username.errors?.['pattern']">no spaecial cahracters</li>
-          <li class="warning" *ngIf="Loginform.controls.username.errors?.['required']">this field is required</li>
-          <li class="warning" *ngIf="Loginform.controls.username.errors?.['minlength']">Must be longer 3 cahracters</li>
-          <li class="warning" *ngIf="Loginform.controls.username.errors?.['maxlength']">Must be shorter than 15 cahracters long</li>
-        </ul><br>
+        <div *ngIf="checkingValidity">
+          <div class="alert" *ngIf="Loginform.controls.username.errors?.['pattern']">no special cahracters</div>
+          <div class="alert" *ngIf="Loginform.controls.username.errors?.['required']">this field is required</div>
+          <div class="alert" *ngIf="Loginform.controls.username.errors?.['minlength']">Must be longer 3 cahracters</div>
+          <div class="alert" *ngIf="Loginform.controls.username.errors?.['maxlength']">Must be shorter than 15 cahracters long</div>
+        </div><br>
          </div>
          <!--password-->
-        <Div>
+        <div>
                 <label class="labels" for="psw"><b>Password</b></label>
                 <input class="InputField" type="password" placeholder="Enter Password" name="psw" formControlName="password"  required>
-                <ul class="InputFieldError" *ngIf="checkingValidity">
-                  <li class="warning" *ngIf="Loginform.controls.password.errors?.['required']">this field is required</li> 
-                  <li class="warning" *ngIf="Loginform.controls.password.errors?.['minlength']">Must be longer 8 </li>
-                  <li class="warning" *ngIf="Loginform.controls.password.errors?.['pattern']">invalid password </li>
-                  <li class="warning" *ngIf="Loginform.controls.password.errors?.['maxlength']">Must be shorter than 35 cahracters long</li>
-                </ul>
+                <div *ngIf="checkingValidity">
+                  <div class="alert" *ngIf="Loginform.controls.password.errors?.['required']">this field is required</div> 
+                  <div class="alert" *ngIf="Loginform.controls.password.errors?.['minlength']">Must be longer 8 </div>
+                  <div class="alert" *ngIf="Loginform.controls.password.errors?.['pattern']">no special cahracters </div>
+                  <div class="alert" *ngIf="Loginform.controls.password.errors?.['maxlength']">Must be shorter than 35 cahracters long</div>
+                </div>
 
-        </Div>
+        </div>
          <!--Submit-->
        <div class="clearfix">
           <button type="button" class="cancelbtn" routerLink="/">Cancel</button>

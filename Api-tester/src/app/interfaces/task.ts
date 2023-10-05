@@ -3,6 +3,5 @@ export interface task{
     task_name:any,
     task_description:any,
     Task_due_date:any,
-    task_belongs_to:string,
-    task_completed:boolean
+    task_belongs_to:string
 }

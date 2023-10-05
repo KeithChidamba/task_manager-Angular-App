@@ -20,16 +20,14 @@ export class DashboardComponent {
     task_name:'',
     task_description:'',
     task_belongs_to:'',
-    Task_due_date:'',
-    task_completed:false
+    Task_due_date:''
   }
   task_instance:task={
     task_number:0,
     task_name:'',
     task_description:'',
     task_belongs_to:'',
-    Task_due_date:'',
-    task_completed:false
+    Task_due_date:''
   }
   retrieve_task:User={
     username:'',
@@ -94,8 +92,7 @@ export class DashboardComponent {
         task_name:t.tasks[i].task_name,
         task_description:t.tasks[i].task_description,
         Task_due_date:t.tasks[i].Task_due_date,
-        task_belongs_to:t.tasks[i].task_belongs_to,
-        task_completed:t.tasks[i].task_completed
+        task_belongs_to:t.tasks[i].task_belongs_to
       }
       this.tasks_.push(this.task_instance);
       i=i+1;
@@ -117,17 +114,11 @@ export class DashboardComponent {
     }
   }
   Complete_task(task_name_:string){
-    this.task_operation_instance.task_name =task_name_;
-    this.task_m.Complete_Task(this.task_operation_instance).subscribe(
-      (task)=>{
-
-        console.log('completed');
-        //show task completion
-      },(error)=>{
-        this.err = true;
-        this.errorAlert = error;
-      }
-    )
+      //play completion animation
+      //dete task
+      setTimeout(()=>{
+        this.remove_task(task_name_);
+      },500);
   }
   Add_task(){
     this.checkingValidity =true;
@@ -136,8 +127,7 @@ export class DashboardComponent {
         task_name:this.Task_Form.get('task_name')?.value,
         task_description:this.Task_Form.get('task_description')?.value,
         Task_due_date:this.Task_Form.get('Task_due_date')?.value, 
-        task_belongs_to:this.username,
-        task_completed:false
+        task_belongs_to:this.username
       }
       this.task_m.Add_Task(this.task_operation_instance).subscribe(
         (data)=>{

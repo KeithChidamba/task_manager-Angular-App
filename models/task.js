@@ -67,7 +67,6 @@ const task_Schema = new Schema({
     task_name:{type: String,required:true,unique:true,lowercase:true, validate: task_name_validator},
     task_description:{type: String,required:true,unique:true,lowercase:true, validate: task_descrip_validator},
     Task_due_date:{type: String,required:true,lowercase:true, validate:task_due_validator},
-    task_belongs_to:{type: String,required:true,lowercase:true, validate:task_bt_validator},
-    task_completed:{type: Boolean,required:true},
+    task_belongs_to:{type: String,required:true,lowercase:true, validate:task_bt_validator}
   });
   module.exports= mongoose.model('task',task_Schema);
