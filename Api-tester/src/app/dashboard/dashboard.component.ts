@@ -14,7 +14,27 @@ import { User } from '../interfaces/userInt';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  constructor(private dp:DatePipe ,public task_m:TaskManagerService,private auth:AuthService,private fb:FormBuilder){}
+  constructor(private dp:DatePipe ,public task_m:TaskManagerService,private auth:AuthService,private fb:FormBuilder){
+    //yesterday
+    let yesterday_ = new Date();
+    yesterday_.setDate(this._date.getDate()-1);
+    let format_yesterday = this.dp.transform(yesterday_, 'yyyy-MM-dd');
+    if(format_yesterday!=null){
+      this.yesterday = format_yesterday;
+    }
+    //today
+    let format_today =this.dp.transform(this._date, 'yyyy-MM-dd');
+    if(format_today!=null){
+      this.current_date = format_today;
+    }
+    //tomorrow
+    let tomorrow_ = new Date();
+    tomorrow_.setDate(this._date.getDate()+1);
+    let format_tomorrow = this.dp.transform(tomorrow_, 'yyyy-MM-dd');
+    if(format_tomorrow!=null){
+      this.tomorrow = format_tomorrow;
+    }
+  }
 
   task_operation_instance:task_operation={
     task_name:'',
@@ -34,6 +54,11 @@ export class DashboardComponent {
     email:'',
     password:'',
   }
+
+  _date = new Date();
+  current_date ='';
+  yesterday = '';
+  tomorrow = '';
   err = false;
   checkingValidity =false;
   errorAlert='';
@@ -46,7 +71,7 @@ export class DashboardComponent {
   Task_Form = this.fb.group({
     task_name : ['', Validators.compose([
       Validators.minLength(5),
-      Validators.maxLength(15),
+      Validators.maxLength(20),
       Validators.required
     ])],
     task_description : ['', Validators.compose([
@@ -74,6 +99,7 @@ export class DashboardComponent {
     }
   }
   Reload_tasks(){
+    this.viewing_task =0;
     this.tasks_ = [];
     this.Get_tasks();
   }
@@ -115,7 +141,6 @@ export class DashboardComponent {
   }
   Complete_task(task_name_:string){
       //play completion animation
-      //dete task
       setTimeout(()=>{
         this.remove_task(task_name_);
       },500);
@@ -147,8 +172,9 @@ export class DashboardComponent {
     this.task_operation_instance.task_name =task_name;
     this.task_m.Delete_task(this.task_operation_instance).subscribe();
     setTimeout(()=>{
+      
       this.Reload_tasks();
-    },500);
+    },300);
   }
   Show_task_description(task_num:number){
     if(this.viewing_task==task_num){
@@ -162,12 +188,11 @@ export class DashboardComponent {
     if(!set){
       setTimeout(()=>{
         this.Reload_tasks();
-      },500);
+      },300);
     }
   }
+  Navigate_Days(){
+    //add ui navigation between yesterday and today and so on
+  }
 
-
-
-    
-  
 }

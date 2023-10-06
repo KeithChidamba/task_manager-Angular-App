@@ -10,7 +10,6 @@ let valid_due_date = (Task_due_date)=>{
         const regExp = new RegExp(/[1-9][0-9][0-9]{2}-([0][1-9]|[1][0-2])-([1-2][0-9]|[0][1-9]|[3][0-1])/);
         return regExp.test(Task_due_date);
     }
-
 }
 
 let task_user_validate = async(task_belongs_to) =>{
@@ -43,7 +42,7 @@ let task_name_length = (task_name) =>{
     if(!task_name){
        return false;
     }else{
-        if (task_name.length < 5 || task_name.length>15)
+        if (task_name.length < 5 || task_name.length>20)
         {
             return false;
         }else{

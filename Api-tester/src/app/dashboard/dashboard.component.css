@@ -1,15 +1,76 @@
-
-.task {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: all 0.5s cubic-bezier(.55, 0, .1, 1);
+.header{
+  text-align: center;
 }
-    
+.task_overview{
+  background-color: lightgreen;
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+  float :right;
+  text-align: center;
+  height: 400px;
+  width: 25%;
+
+}
+.task_overview ul{
+  list-style-type: none;
+}
+.task_overview li span{
+  font-size: 22px;
+  margin-top: 20px;
+  color: white;
+}
+.task_overview li{
+  text-align: center;
+  height: 50px;
+  width:90%;
+  background-color: #127e33;
+  margin-right: 25px;
+  border-radius: 20px;
+}
+
+
+.task{
+  text-align: center;
+  height: 150px;
+  width: 20%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+  margin-top: 10px;
+  border-color: black ;
+  border-radius: 20px;
+  border-style:  solid;
+  background-color: #29f797;
+} 
+#new_task{
+background-color: white;
+}
+.task span{
+  color:white;
+  font-size: 22px;
+}
+.task ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  float :right;
+}
+.task ul:hover{
+  cursor: pointer;
+}
+.task p{
+  color: white;
+}
+.task div{
+  margin-top: 15px;
+}
+.task li {
+  display: inline-block;
+  vertical-align: middle;
+    margin-right: 5px;
+  }
   * {box-sizing: border-box}
 
 /* Full-width input fields */
@@ -103,19 +164,6 @@ margin-bottom: 20px;
   background-color: orange;
   border: none;
   cursor: pointer;
-}
-@keyframes strikethrough {
-	from {
-		transform: scaleX(0);
-	}
-	to {
-		transform: scaleX(1);
-	}
-}
-.task:hover{
-  transform-origin: center left;
-	animation: strikethrough 1s 0.5s cubic-bezier(.55, 0, .1, 1) 1;
-	transition: transform 0.5s cubic-bezier(.55, 0, .1, 1);
 }
 
 

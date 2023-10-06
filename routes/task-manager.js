@@ -58,7 +58,7 @@ module.exports = (router) => {
             if(err){
                 return res.status(400).send(["encountered Error",err]);
            }else{
-                console.log('deleted: ',del);
+                res.json({success: true, message:"task delted"});
            }
         });
     });

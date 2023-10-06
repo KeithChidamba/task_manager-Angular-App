@@ -103,7 +103,6 @@ module.exports = (router) => {
     });
 
     router.get('/profile',async(req,res)=>{
-        console.log(req.decoded);
         const user = await User.findOne({_id:req.decoded.userId}).select('username email').exec((err,user)=>{
             if(err){
                 res.json({success: false, message:err});  

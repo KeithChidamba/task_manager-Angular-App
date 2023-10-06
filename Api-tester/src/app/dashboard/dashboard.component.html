@@ -10,7 +10,7 @@
                 <div *ngIf="checkingValidity">
                     <div class="alert" *ngIf="Task_Form.controls.task_name.errors?.['required']">Task name is required</div>
                     <div class="alert" *ngIf="Task_Form.controls.task_name.errors?.['minlength']">Task name must be longer 5 cahracters</div>
-                    <div class="alert" *ngIf="Task_Form.controls.task_name.errors?.['maxlength']">Task name must be shorter than 15 cahracters long</div>
+                    <div class="alert" *ngIf="Task_Form.controls.task_name.errors?.['maxlength']">Task name must be shorter than 30 cahracters long</div>
                 </div> 
             </div>
             <!--task Decritption-->
@@ -43,23 +43,79 @@
 
 </div>
 
-<div *ngIf="!Adding_task">
-        <button class="OperationBtn" (click)="Add_task_View(true)">Add task</button>
-        <div  class="task-list" id="task-list">
+<div class="Tasks" *ngIf="!Adding_task">
+    <h1 class="header" align="center">Tasks</h1>
+    <div class="task_overview">
+            <h2>
+                Today
+            </h2>
+        <ul *ngFor="let task of tasks_">
+            <li *ngIf="task.Task_due_date==current_date">
+                <span>
+                    {{task.task_name}}
+                </span>
+            </li>
+        </ul>
+            <h2>
+                Yesterday
+            </h2>
+        <ul *ngFor="let task of tasks_">
+            <li *ngIf="task.Task_due_date==yesterday">
+                <span>
+                    {{task.task_name}}
+                </span>
+            </li>
+        </ul>
+        <h2>
+            Tomorrow
+        </h2>
+    <ul *ngFor="let task of tasks_">
+        <li *ngIf="task.Task_due_date==tomorrow">
+            <span>
+                {{task.task_name}}
+            </span>
+        </li>
+    </ul>
+    </div>
             <ul>
                 <li class="task" *ngFor="let task of tasks_">
-                    {{task.task_name}}
-                    <button class=".task button"  (click)="Show_task_description(task.task_number)">Description</button>
-                    <button class=".task button" (click)="remove_task(task.task_name)"><img height="35px" width="25px" src="assets/bin.png"></button>
-                    <button (click)="Complete_task(task.task_name)">
-                        <img height="30px" width="30px" src="assets/checkB_open.png">
-                    </button>
-                    <div  *ngIf="viewing_task==task.task_number">
-                        <p>{{task.task_description}}</p>
-                        <p>{{task.Task_due_date}}</p>
+                    <div align="center" *ngIf="viewing_task!=task.task_number">
+                        <a style="cursor: pointer;float: right;" (click)="Show_task_description(task.task_number)">
+                            <img style="margin-left: 10px;rotate: 180deg;" height="35px" width="45px" src="assets/arrow.png">
+                        </a>
+                        <span>{{task.task_name}}</span><br>
+                        <span>Due: {{task.Task_due_date| date:'EEEE'}}</span><br>
                     </div>
-    
+                    <div *ngIf="viewing_task==task.task_number">
+                        <ul>
+                            <li>
+                                <a (click)="Show_task_description(task.task_number)">
+                                    <img height="35px" width="35px" src="assets/arrow.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a (click)="remove_task(task.task_name)">
+                                    <img height="30px" width="25px" src="assets/bin.png">
+                                </a>
+                            </li>
+                            <li>
+                                <a (click)="Complete_task(task.task_name)">
+                                    <img height="30px" width="30px" src="assets/checkB_open.png">
+                                </a>
+                            </li>
+                        </ul>
+                        <br>
+                        <span>
+                            Description
+                        </span>
+                        <p>{{task.task_description}}</p>
+                        
+                    </div>
                 </li>
-            </ul>
-    </div>
+                <li class="task">
+                    <a (click)="Add_task_View(true)" align="center">
+                        <img style="margin-top: 20px;" height="100px" width="100px" src="assets/plus.png">
+                    </a>
+                </li>
+            </ul>     
 </div>
