@@ -4,9 +4,11 @@ import {tasks } from '../interfaces/tasks';
 import { task } from '../interfaces/task';
 import { AuthService } from '../services/auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 import { task_operation } from '../interfaces/task_operation';
 import { User } from '../interfaces/userInt';
+import { DateManagerService } from '../services/date-manager.service';
+import { week } from '../interfaces/Week';
+import { Day_of_Week } from '../interfaces/Day';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,26 +16,10 @@ import { User } from '../interfaces/userInt';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  constructor(private dp:DatePipe ,public task_m:TaskManagerService,private auth:AuthService,private fb:FormBuilder){
-    //yesterday
-    let yesterday_ = new Date();
-    yesterday_.setDate(this._date.getDate()-1);
-    let format_yesterday = this.dp.transform(yesterday_, 'yyyy-MM-dd');
-    if(format_yesterday!=null){
-      this.yesterday = format_yesterday;
-    }
-    //today
-    let format_today =this.dp.transform(this._date, 'yyyy-MM-dd');
-    if(format_today!=null){
-      this.current_date = format_today;
-    }
-    //tomorrow
-    let tomorrow_ = new Date();
-    tomorrow_.setDate(this._date.getDate()+1);
-    let format_tomorrow = this.dp.transform(tomorrow_, 'yyyy-MM-dd');
-    if(format_tomorrow!=null){
-      this.tomorrow = format_tomorrow;
-    }
+  constructor(public dm:DateManagerService,public task_m:TaskManagerService,private auth:AuthService,private fb:FormBuilder){
+    this.yesterday =dm.Get_yesterday();
+    this.current_date=dm.Get_today();
+    this.tomorrow =dm.Get_tomorrow();
   }
 
   task_operation_instance:task_operation={
@@ -42,8 +28,13 @@ export class DashboardComponent {
     task_belongs_to:'',
     Task_due_date:''
   }
+  Current_day_of_week:Day_of_Week={
+    Day_name:'Monday',
+    Day_number:1
+  }
   task_instance:task={
     task_number:0,
+    Task_due_Day:'',
     task_name:'',
     task_description:'',
     task_belongs_to:'',
@@ -55,8 +46,9 @@ export class DashboardComponent {
     password:'',
   }
 
-  _date = new Date();
+  Week = week;
   current_date ='';
+  current_day_index = 0;
   yesterday = '';
   tomorrow = '';
   err = false;
@@ -83,7 +75,18 @@ export class DashboardComponent {
       Validators.required,
     ])],
   });
-
+  ChangeWeekDay(operation: string){
+    //cant go less than monday
+    if(operation=='back'&&this.current_day_index>0){
+      this.current_day_index-=1;
+      this.Current_day_of_week = week[this.current_day_index];
+    }
+    //cant go more than sunday
+    if(operation=='forward'&&this.current_day_index<7){
+      this.current_day_index+=1;
+      this.Current_day_of_week = week[this.current_day_index];
+    }
+  }
   ngOnInit(){
     this.tasks_ = [];
     if(!this.loaded_user){
@@ -92,17 +95,12 @@ export class DashboardComponent {
           this.load_user(profile);
         },
         (error)=>{
-          this.err = true;
-          this.errorAlert = error;
+          this.handle_request_error(true, error);
         }
       );
     }
   }
-  Reload_tasks(){
-    this.viewing_task =0;
-    this.tasks_ = [];
-    this.Get_tasks();
-  }
+
   load_user(info:any){
     this.username =JSON.stringify(info.name).slice(1, -1);
     this.retrieve_task.username =this.username;
@@ -115,6 +113,7 @@ export class DashboardComponent {
     for (let i=0;i<t.tasks.length;){
       this.task_instance = {
         task_number:i+1,
+        Task_due_Day:this.dm.Get_task_Due_Day(t.tasks[i]),
         task_name:t.tasks[i].task_name,
         task_description:t.tasks[i].task_description,
         Task_due_date:t.tasks[i].Task_due_date,
@@ -126,25 +125,8 @@ export class DashboardComponent {
   }
 
 
-  Get_tasks(){
-    if(this.loaded_user){
-      this.task_m.GetTasks(this.retrieve_task).subscribe(
-        (tasks)=>{
-          this.load_task(tasks);
-        },
-        (error)=>{
-          this.err = true;
-          this.errorAlert = error;
-        }
-      );
-    }
-  }
-  Complete_task(task_name_:string){
-      //play completion animation
-      setTimeout(()=>{
-        this.remove_task(task_name_);
-      },500);
-  }
+
+  //taskoperations
   Add_task(){
     this.checkingValidity =true;
     if(this.Task_Form.valid){
@@ -156,26 +138,33 @@ export class DashboardComponent {
       }
       this.task_m.Add_Task(this.task_operation_instance).subscribe(
         (data)=>{
-          console.log(data)
           this.Add_task_View(false);
         },
         (error)=>{
-          this.err = true;
-          this.errorAlert = error;
+          this.handle_request_error(true, error);
         }
       );
-
     }
-
   }
   remove_task(task_name:string){
     this.task_operation_instance.task_name =task_name;
     this.task_m.Delete_task(this.task_operation_instance).subscribe();
-    setTimeout(()=>{
-      
-      this.Reload_tasks();
-    },300);
+    this.Reload_tasks(300);
   }
+  Get_tasks(){
+    if(this.loaded_user){
+      this.task_m.GetTasks(this.retrieve_task).subscribe(
+        (tasks)=>{
+          this.load_task(tasks);
+        },
+        (error)=>{
+          this.handle_request_error(true, error);
+        }
+      );
+    }
+  }
+
+//ui logic
   Show_task_description(task_num:number){
     if(this.viewing_task==task_num){
       this.viewing_task =0;
@@ -186,13 +175,24 @@ export class DashboardComponent {
   Add_task_View(set:boolean){
     this.Adding_task=set;
     if(!set){
-      setTimeout(()=>{
-        this.Reload_tasks();
-      },300);
+      this.Reload_tasks(300);
     }
   }
   Navigate_Days(){
     //add ui navigation between yesterday and today and so on
   }
 
+  //functional methods
+  handle_request_error(error:boolean,alert_msg:string)
+  {
+    error = true;
+    this.errorAlert = alert_msg;
+  }
+  Reload_tasks(ms:number){
+    setTimeout(()=>{
+      this.viewing_task =0;
+      this.tasks_ = [];
+      this.Get_tasks();
+    },ms);
+  }
 }
