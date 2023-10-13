@@ -80,11 +80,13 @@ export class DashboardComponent {
     if(operation=='back'&&this.current_day_index>0){
       this.current_day_index-=1;
       this.Current_day_of_week = week[this.current_day_index];
+      this.Show_task_description(0,0);
     }
     //cant go more than sunday
     if(operation=='forward'&&this.current_day_index<7){
       this.current_day_index+=1;
       this.Current_day_of_week = week[this.current_day_index];
+      this.Show_task_description(0,0);
     }
   }
   ngOnInit(){
@@ -110,7 +112,7 @@ export class DashboardComponent {
 
   load_task(info:any){
     let t = JSON.parse(JSON.stringify(info));
-    for (let i=0;i<t.tasks.length;){
+    for (let i=0;i<t.tasks.length;i++){
       this.task_instance = {
         task_number:i+1,
         Task_due_Day:this.dm.Get_task_Due_Day(t.tasks[i]),
@@ -120,7 +122,6 @@ export class DashboardComponent {
         task_belongs_to:t.tasks[i].task_belongs_to
       }
       this.tasks_.push(this.task_instance);
-      i=i+1;
     } 
   }
 
@@ -165,27 +166,26 @@ export class DashboardComponent {
   }
 
 //ui logic
-  Show_task_description(task_num:number){
-    if(this.viewing_task==task_num){
-      this.viewing_task =0;
-    }else{
+  Show_task_description(task_num:number,operation:number){
+    //hide task details
+    if(operation==0){
+      this.viewing_task = 0;
+    }
+    //view task
+    if(operation==1){
       this.viewing_task = task_num;
     }
   }
   Add_task_View(set:boolean){
     this.Adding_task=set;
     if(!set){
-      this.Reload_tasks(300);
+      this.Reload_tasks(150);
     }
   }
-  Navigate_Days(){
-    //add ui navigation between yesterday and today and so on
-  }
-
   //functional methods
-  handle_request_error(error:boolean,alert_msg:string)
+  handle_request_error(err:boolean,alert_msg:string)
   {
-    error = true;
+    err = true;
     this.errorAlert = alert_msg;
   }
   Reload_tasks(ms:number){

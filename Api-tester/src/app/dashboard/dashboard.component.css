@@ -1,14 +1,35 @@
+.Tasks_content{
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+}
 .header{
   text-align: center;
+}
+.task_description{
+  background-color: rgb(61, 240, 141);
+display:inline-block;
+vertical-align: middle;
+width:20%;
+
+border-radius: 20px;
+}
+.task_description ul{
+  list-style-type: none;
+}
+.task_description ul li{
+float:right;
+margin-right: 10px;
 }
 .task_overview{
   background-color: lightgreen;
   list-style-type: none;
   padding: 0;
   overflow: hidden;
-  float :right;
   text-align: center;
   width: 25%;
+  display:inline-block;
+  vertical-align: middle;
 
 }
 .task_overview ul{
@@ -27,49 +48,13 @@
   margin-right: 25px;
   border-radius: 20px;
 }
-
-
-.task{
-  text-align: center;
-  height: 150px;
-  width: 20%;
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: 20px;
-  margin-top: 10px;
-  border-color: black ;
-  border-radius: 20px;
-  border-style:  solid;
-  background-color: #29f797;
-} 
+.task_overview ul li:hover{
+  background-color:chartreuse;
+}
 #new_task{
 background-color: white;
 }
-.task span{
-  color:white;
-  font-size: 22px;
-}
-.task ul{
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  float :right;
-}
-.task ul:hover{
-  cursor: pointer;
-}
-.task p{
-  color: white;
-}
-.task div{
-  margin-top: 15px;
-}
-.task li {
-  display: inline-block;
-  vertical-align: middle;
-    margin-right: 5px;
-  }
+
   * {box-sizing: border-box}
 
 /* Full-width input fields */

@@ -44,9 +44,11 @@
 </div>
 
  <!--Task overview-->
-<div class="Tasks" *ngIf="!Adding_task">
+<div *ngIf="!Adding_task" align="center"  class="Tasks_content">
+    <button class="OperationBtn" (click)="Add_task_View(true)">New Task</button>
     <h1 class="header" align="center">Tasks</h1>
-    <div class="task_overview">  
+
+    <div align="center" class="task_overview">  
         <a (click)="ChangeWeekDay('back')"><img  height="35px" width="35px" src="assets/arrow.png"></a>
         <a (click)="ChangeWeekDay('forward')"><img height="35px" style="rotate: 180deg;" width="35px" src="assets/arrow.png"></a>
         <div>
@@ -54,49 +56,39 @@
                 {{Current_day_of_week.Day_name}}
             </h2>
             <ul *ngFor="let task of tasks_">
-                <li *ngIf="task.Task_due_Day==Current_day_of_week.Day_name">
-                    <span>
-                        {{task.task_name}}
-                    </span>
-                </li>
+                <a (click)="Show_task_description(task.task_number,1)">
+                    <li *ngIf="task.Task_due_Day==Current_day_of_week.Day_name">
+                        <span>
+                            {{task.task_name}}
+                        </span>
+                    </li>  
+                </a>
             </ul>
         </div>
     </div>
-     <!--Individual tasks-->
-            <ul>
-                <li class="task" *ngFor="let task of tasks_">
-                    <div align="center" *ngIf="viewing_task!=task.task_number">
-                        <a style="cursor: pointer;float: right;" (click)="Show_task_description(task.task_number)">
-                            <img style="margin-left: 10px;rotate: 180deg;" height="35px" width="45px" src="assets/arrow.png">
+
+    <div  class="task_description">
+        <div *ngFor="let task of tasks_" >
+            <div *ngIf="viewing_task==task.task_number">
+                <ul>
+                    <li>
+                        <a (click)="Show_task_description(task.task_number,0)">
+                            <img height="35px" width="35px" src="assets/arrow.png">
                         </a>
-                        <span>{{task.task_name}}</span><br>
-                        <span>Due: {{task.Task_due_date| date:'EEEE'}}</span><br>
-                    </div>
-                    <div *ngIf="viewing_task==task.task_number">
-                        <ul>
-                            <li>
-                                <a (click)="Show_task_description(task.task_number)">
-                                    <img height="35px" width="35px" src="assets/arrow.png">
-                                </a>
-                            </li>
-                            <li>
-                                <a (click)="remove_task(task.task_name)">
-                                    <img height="30px" width="25px" src="assets/bin.png">
-                                </a>
-                            </li>
-                        </ul>
-                        <br>
-                        <span>
-                            Description
-                        </span>
-                        <p>{{task.task_description}}</p>
-                        
-                    </div>
-                </li>
-                <li class="task">
-                    <a (click)="Add_task_View(true)" align="center">
-                        <img style="margin-top: 20px;" height="100px" width="100px" src="assets/plus.png">
-                    </a>
-                </li>
-            </ul>     
+                    </li>
+                    <li>
+                        <a (click)="remove_task(task.task_name)">
+                            <img height="30px" width="25px" src="assets/bin.png">
+                        </a>
+                    </li>
+                </ul>
+                <br>
+                <span>
+                    Description
+                </span>
+                <p>{{task.task_description}}</p>
+            </div>
+        </div>
+    </div>
 </div>
+
