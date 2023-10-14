@@ -45,9 +45,9 @@
 
  <!--Task overview-->
 <div *ngIf="!Adding_task" align="center"  class="Tasks_content">
-    <button class="OperationBtn" (click)="Add_task_View(true)">New Task</button>
     <h1 class="header" align="center">Tasks</h1>
-
+    <button class="New_task" (click)="Add_task_View(true)">New Task</button>
+    <br>
     <div align="center" class="task_overview">  
         <a (click)="ChangeWeekDay('back')"><img  height="35px" width="35px" src="assets/arrow.png"></a>
         <a (click)="ChangeWeekDay('forward')"><img height="35px" style="rotate: 180deg;" width="35px" src="assets/arrow.png"></a>
@@ -66,7 +66,7 @@
             </ul>
         </div>
     </div>
-
+ <!--Task description-->
     <div  class="task_description">
         <div *ngFor="let task of tasks_" >
             <div *ngIf="viewing_task==task.task_number">

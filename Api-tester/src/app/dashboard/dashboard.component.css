@@ -5,13 +5,36 @@
 }
 .header{
   text-align: center;
+  display:inline-block;
+  vertical-align: middle;
+  font-style: italic;
+  font-family:serif;
+  font-size: 70px;
+}
+.New_task{
+  width: 120px;
+  height: 30px;
+  background-color: rgb(35, 78, 49);
+  border: none;
+  cursor: pointer;
+  display:inline-block;
+  vertical-align: middle;
+  margin-left: 30px;
+  border-radius: 20px;
+  color:white;
+}
+.New_task:hover{
+width: 150px;
+height: 40px;
+background-color: rgb(95, 201, 95);
 }
 .task_description{
   background-color: rgb(61, 240, 141);
+  position: fixed;
 display:inline-block;
 vertical-align: middle;
 width:20%;
-
+margin-left: 30px;
 border-radius: 20px;
 }
 .task_description ul{
@@ -142,13 +165,7 @@ border: 1px solid #FEEC6F;
 color: #C9971C;
 margin-bottom: 20px;
 }
-.OperationBtn{
-  width: 100px;
-  height: 25px;
-  background-color: orange;
-  border: none;
-  cursor: pointer;
-}
+
 
 
 /* Change styles for cancel button and signup button on extra small screens */

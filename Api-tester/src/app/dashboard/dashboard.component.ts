@@ -125,8 +125,6 @@ export class DashboardComponent {
     } 
   }
 
-
-
   //taskoperations
   Add_task(){
     this.checkingValidity =true;
@@ -142,6 +140,7 @@ export class DashboardComponent {
           this.Add_task_View(false);
         },
         (error)=>{
+          console.log("got adding error: ",this.err)
           this.handle_request_error(true, error);
         }
       );
@@ -183,9 +182,9 @@ export class DashboardComponent {
     }
   }
   //functional methods
-  handle_request_error(err:boolean,alert_msg:string)
+  handle_request_error(err_:boolean,alert_msg:any)
   {
-    err = true;
+    this.err = err_;
     this.errorAlert = alert_msg;
   }
   Reload_tasks(ms:number){
