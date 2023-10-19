@@ -30,9 +30,6 @@ private handleError(error: HttpErrorResponse) {
   if (error.status==426){
     console.error('token header error',error.error);
   }
-  if (error.status==422){
-    console.error('task alreasdy exists',error.error);
-  }
     console.error(
       `Backend returned code ${error.status}, body was: `, error.error);
   return throwError(() => new Error(error.error));

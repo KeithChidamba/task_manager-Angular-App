@@ -49,7 +49,7 @@ export class LoginComponent {
             this.success = true;
             this.err = false;
             setTimeout(()=>{
-                this.router.navigate(['/Profile'])
+                this.router.navigate(['/dashboard'])
             },500)
             this.router 
           },

@@ -1,8 +1,5 @@
-
 <div>
-
   <ul>
-    
     <li *ngIf="auth.loggedIn()">
        <a href="" routerLink="/dashboard" [routerLinkActive]="['active']"  [routerLinkActiveOptions]="{exact:true}">dashboard</a>
       </li>
@@ -19,7 +16,5 @@
           <a href=""  (click)="Logout()" routerLink="/">Logout</a>
         </li>
   </ul>
-<hr>
 </div>
-
 <router-outlet></router-outlet>

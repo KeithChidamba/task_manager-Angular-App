@@ -75,20 +75,7 @@ export class DashboardComponent {
       Validators.required,
     ])],
   });
-  ChangeWeekDay(operation: string){
-    //cant go less than monday
-    if(operation=='back'&&this.current_day_index>0){
-      this.current_day_index-=1;
-      this.Current_day_of_week = week[this.current_day_index];
-      this.Show_task_description(0,0);
-    }
-    //cant go more than sunday
-    if(operation=='forward'&&this.current_day_index<7){
-      this.current_day_index+=1;
-      this.Current_day_of_week = week[this.current_day_index];
-      this.Show_task_description(0,0);
-    }
-  }
+
   ngOnInit(){
     this.tasks_ = [];
     if(!this.loaded_user){
@@ -181,6 +168,20 @@ export class DashboardComponent {
       this.Reload_tasks(150);
     }
   }
+  ChangeWeekDay(operation: string){
+    //cant go less than monday
+    if(operation=='back'&&this.current_day_index>0){
+      this.current_day_index-=1;
+      this.Current_day_of_week = week[this.current_day_index];
+      this.Show_task_description(0,0);
+    }
+    //cant go more than sunday
+    if(operation=='forward'&&this.current_day_index<7){
+      this.current_day_index+=1;
+      this.Current_day_of_week = week[this.current_day_index];
+      this.Show_task_description(0,0);
+    }
+  }
   //functional methods
   handle_request_error(err_:boolean,alert_msg:any)
   {
@@ -189,7 +190,7 @@ export class DashboardComponent {
   }
   Reload_tasks(ms:number){
     setTimeout(()=>{
-      this.viewing_task =0;
+      this.viewing_task = 0;
       this.tasks_ = [];
       this.Get_tasks();
     },ms);

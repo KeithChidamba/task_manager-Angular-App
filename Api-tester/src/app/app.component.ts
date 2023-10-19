@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Api-tester';
   constructor(public auth:AuthService,private router:Router){}
   Logout(){
     this.auth.Logout();
