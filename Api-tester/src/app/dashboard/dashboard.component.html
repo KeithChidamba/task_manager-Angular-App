@@ -42,7 +42,50 @@
 
 
 </div>
-
+<!--Task navigation-->
+<div class="task-nav">
+    <h1 align="center">Keith</h1>
+    <ul>
+        <li>
+            Today
+            <ul *ngFor="let task of tasks_">
+                <a (click)="Show_task_description(task.task_number,1)">
+                    <li *ngIf="task.Task_due_Day==current_date">
+                        <span>{{task.task_name}}</span>
+                    </li>
+                </a>
+            </ul>
+        </li>
+        <li>
+            Tomorow
+            <ul *ngFor="let task of tasks_">
+                <a (click)="Show_task_description(task.task_number,1)">
+                    <li *ngIf="task.Task_due_Day==tomorrow">
+                        <span>{{task.task_name}}</span>
+                    </li>
+                </a>
+            </ul>
+        </li>
+        <li>
+            Yesterday
+            <ul *ngFor="let task of tasks_">
+                <a (click)="Show_task_description(task.task_number,1)">
+                    <li *ngIf="task.Task_due_Day==yesterday">
+                        <span>{{task.task_name}}</span>
+                    </li>
+                </a>
+            </ul>
+        </li>
+        <li>
+            Tasks
+            <ul *ngFor="let task of tasks_">
+                <li>
+                    <span>{{task.task_name}}</span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
  <!--Task overview-->
 <div *ngIf="!Adding_task" align="center"  class="Tasks_content">
     <h1 class="header" align="center">Tasks</h1>

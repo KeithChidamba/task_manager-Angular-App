@@ -45,7 +45,6 @@ export class DashboardComponent {
     email:'',
     password:'',
   }
-
   Week = week;
   current_date ='';
   current_day_index = 0;
@@ -108,6 +107,7 @@ export class DashboardComponent {
         Task_due_date:t.tasks[i].Task_due_date,
         task_belongs_to:t.tasks[i].task_belongs_to
       }
+      //if task list property is eaqual to name of list 
       this.tasks_.push(this.task_instance);
     } 
   }
@@ -176,7 +176,7 @@ export class DashboardComponent {
       this.Show_task_description(0,0);
     }
     //cant go more than sunday
-    if(operation=='forward'&&this.current_day_index<7){
+    if(operation=='forward'&&this.current_day_index<6){
       this.current_day_index+=1;
       this.Current_day_of_week = week[this.current_day_index];
       this.Show_task_description(0,0);
