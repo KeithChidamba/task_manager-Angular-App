@@ -58,7 +58,9 @@ export class DashboardComponent {
   Adding_task=false;
   viewing_task=0;
   username='';
-
+  viewing_tasks=0;
+  viewing_days=false;
+  current_view_day ='';
   Task_Form = this.fb.group({
     task_name : ['', Validators.compose([
       Validators.minLength(5),
@@ -152,6 +154,24 @@ export class DashboardComponent {
   }
 
 //ui logic
+  Show_tasks(day:number){
+      this.viewing_tasks = day;
+      switch(day){
+        case 1:
+          this.current_view_day ='Yesterday';
+          break;
+        case 2:
+          this.current_view_day ='Today';
+          break;
+        case 3:
+          this.current_view_day ='Tomorrow';
+          break;
+        case 4:
+          this.current_view_day ='Tasks';
+          break;
+      }
+      this.viewing_days =false;
+  }
   Show_task_description(task_num:number,operation:number){
     //hide task details
     if(operation==0){
@@ -163,12 +183,14 @@ export class DashboardComponent {
     }
   }
   Add_task_View(set:boolean){
+    this.viewing_task = 0
     this.Adding_task=set;
     if(!set){
       this.Reload_tasks(150);
     }
   }
   ChangeWeekDay(operation: string){
+    this.viewing_days =true;
     //cant go less than monday
     if(operation=='back'&&this.current_day_index>0){
       this.current_day_index-=1;

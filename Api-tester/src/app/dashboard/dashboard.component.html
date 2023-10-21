@@ -38,79 +38,40 @@
             </div>
         </div>
     </form>
-
-
-
 </div>
+
 <!--Task navigation-->
-<div class="task-nav">
-    <h1 align="center">Keith</h1>
+<div *ngIf="!Adding_task" class="task-nav">
+    <h1 align="center">{{username}}</h1>
     <ul>
         <li>
-            Today
-            <ul *ngFor="let task of tasks_">
-                <a (click)="Show_task_description(task.task_number,1)">
-                    <li *ngIf="task.Task_due_Day==current_date">
-                        <span>{{task.task_name}}</span>
-                    </li>
-                </a>
-            </ul>
+            <button (click)="Show_tasks(2)">Today</button>
         </li>
         <li>
-            Tomorow
-            <ul *ngFor="let task of tasks_">
-                <a (click)="Show_task_description(task.task_number,1)">
-                    <li *ngIf="task.Task_due_Day==tomorrow">
-                        <span>{{task.task_name}}</span>
-                    </li>
-                </a>
-            </ul>
+            <button (click)="Show_tasks(3)">Tomorow</button>
         </li>
         <li>
-            Yesterday
-            <ul *ngFor="let task of tasks_">
-                <a (click)="Show_task_description(task.task_number,1)">
-                    <li *ngIf="task.Task_due_Day==yesterday">
-                        <span>{{task.task_name}}</span>
-                    </li>
-                </a>
-            </ul>
+            <button (click)="Show_tasks(1)">Yesterday</button>
         </li>
         <li>
-            Tasks
-            <ul *ngFor="let task of tasks_">
-                <li>
-                    <span>{{task.task_name}}</span>
-                </li>
-            </ul>
+            <button (click)="Show_tasks(4)">Tasks</button>
+        </li>
+        <li>
+            <button (click)="Add_task_View(true)">New Task</button>
         </li>
     </ul>
-</div>
- <!--Task overview-->
-<div *ngIf="!Adding_task" align="center"  class="Tasks_content">
-    <h1 class="header" align="center">Tasks</h1>
-    <button class="New_task" (click)="Add_task_View(true)">New Task</button>
-    <br>
     <div align="center" class="task_overview">  
         <a (click)="ChangeWeekDay('back')"><img  height="35px" width="35px" src="assets/arrow.png"></a>
+        <span>
+            {{Current_day_of_week.Day_name}}
+        </span>
         <a (click)="ChangeWeekDay('forward')"><img height="35px" style="rotate: 180deg;" width="35px" src="assets/arrow.png"></a>
-        <div>
-            <h2>
-                {{Current_day_of_week.Day_name}}
-            </h2>
-            <ul *ngFor="let task of tasks_">
-                <a (click)="Show_task_description(task.task_number,1)">
-                    <li *ngIf="task.Task_due_Day==Current_day_of_week.Day_name">
-                        <span>
-                            {{task.task_name}}
-                        </span>
-                    </li>  
-                </a>
-            </ul>
-        </div>
     </div>
+    <br>
+</div>
+
  <!--Task description-->
-    <div  class="task_description">
+    <div  class="task_description" *ngIf="viewing_task!=0">
         <div *ngFor="let task of tasks_" >
             <div *ngIf="viewing_task==task.task_number">
                 <ul>
@@ -126,12 +87,66 @@
                     </li>
                 </ul>
                 <br>
-                <span>
+                <h2 align="center">
                     Description
-                </span>
+                </h2>
                 <p>{{task.task_description}}</p>
             </div>
         </div>
     </div>
+
+<!--Main task view-->
+<div *ngIf="!Adding_task" class="Main-task-view">
+    <h1 class="header" align="center">Tasks</h1>
+    <div *ngIf="!viewing_days">
+        <h2 align="center">
+            {{current_view_day}}
+        </h2>
+        <ul *ngFor="let task of tasks_">
+            <div *ngIf="viewing_tasks==2">
+                <a (click)="Show_task_description(task.task_number,1)">
+                    <li *ngIf="task.Task_due_date==current_date">
+                        <span>{{task.task_name}}</span>
+                    </li>
+                </a>
+            </div>
+            <div *ngIf="viewing_tasks==3">
+                <a (click)="Show_task_description(task.task_number,1)">
+                    <li *ngIf="task.Task_due_date==tomorrow">
+                        <span>{{task.task_name}}</span>
+                    </li>
+                </a>
+            </div>
+            <div *ngIf="viewing_tasks==1">
+                <a (click)="Show_task_description(task.task_number,1)">
+                    <li *ngIf="task.Task_due_date==yesterday">
+                        <span>{{task.task_name}}</span>
+                    </li>
+                </a>
+            </div>
+            <div *ngIf="viewing_tasks==4">
+                <a (click)="Show_task_description(task.task_number,1)">
+                    <li>
+                        <span>{{task.task_name}}</span>
+                    </li>
+                </a>
+            </div>
+        </ul>
+    </div>
+    <div *ngIf="viewing_days">
+        <h2 align="center">
+            {{Current_day_of_week.Day_name}}
+        </h2>
+        <ul *ngFor="let task of tasks_">
+            <a (click)="Show_task_description(task.task_number,1)">
+                <li *ngIf="task.Task_due_Day==Current_day_of_week.Day_name">
+                    <span>
+                        {{task.task_name}}
+                    </span>
+                </li>  
+            </a>
+        </ul>
+    </div>
 </div>
+ 
 
